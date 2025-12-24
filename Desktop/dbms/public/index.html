@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Cafe | Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <span class="material-icons-round logo-icon">coffee</span>
+                <h1>AURA<span class="highlight">CAFE</span></h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li class="active" onclick="showSection('dashboard')">
+                    <span class="material-icons-round">dashboard</span>
+                    <span>Dashboard</span>
+                </li>
+                <li onclick="showSection('menu')">
+                    <span class="material-icons-round">restaurant_menu</span>
+                    <span>Menu</span>
+                </li>
+                <li onclick="showSection('orders')">
+                    <span class="material-icons-round">receipt_long</span>
+                    <span>Orders</span>
+                </li>
+                <li onclick="showSection('inventory')">
+                    <span class="material-icons-round">inventory_2</span>
+                    <span>Inventory</span>
+                </li>
+                <li onclick="showSection('staff')">
+                    <span class="material-icons-round">badge</span>
+                    <span>Staff</span>
+                </li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=ffb74d&color=fff" alt="Admin">
+                </div>
+                <div class="info">
+                    <h4>Admin User</h4>
+                    <small>Manager</small>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header>
+                <div class="header-title">
+                    <h2 id="page-title">Dashboard</h2>
+                    <p id="current-date">Fetching date...</p>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn"><span class="material-icons-round">notifications</span></button>
+                    <button class="primary-btn" onclick="openNewOrderModal()">
+                        <span class="material-icons-round">add</span> New Order
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon-box blue"><span class="material-icons-round">shopping_cart</span></div>
+                        <div class="stat-info">
+                            <h3>Total Orders</h3>
+                            <p class="value">124</p>
+                            <span class="trend up">+12% today</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-box orange"><span class="material-icons-round">payments</span></div>
+                        <div class="stat-info">
+                            <h3>Revenue</h3>
+                            <p class="value">$1,240.50</p>
+                            <span class="trend up">+5% today</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-box purple"><span class="material-icons-round">people</span></div>
+                        <div class="stat-info">
+                            <h3>Customers</h3>
+                            <p class="value">85</p>
+                            <span class="trend down">-2% today</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-orders-container">
+                    <h3>Recent Activity</h3>
+                    <div class="table-container">
+                        <table class="premium-table" id="dashboard-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Time</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                                <tr><td colspan="5" class="loading-text">Loading data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menu Section -->
+            <section id="menu-section" class="content-section">
+                <div class="menu-grid" id="menu-container">
+                    <!-- Menu items injected here -->
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders-section" class="content-section">
+                 <div class="table-container">
+                    <table class="premium-table" id="all-orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Time</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+             <!-- Inventory Section -->
+             <section id="inventory-section" class="content-section">
+                <div class="table-container">
+                   <table class="premium-table" id="inventory-table">
+                       <thead>
+                           <tr>
+                               <th>Item Name</th>
+                               <th>Stock</th>
+                               <th>Unit</th>
+                               <th>Reorder Level</th>
+                               <th>Supplier</th>
+                               <th>Status</th>
+                           </tr>
+                       </thead>
+                       <tbody></tbody>
+                   </table>
+               </div>
+           </section>
+        </main>
+    </div>
+
+    <!-- New Order Modal -->
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>New Order</h2>
+                <span class="close-btn" onclick="closeModal('order-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="order-form-grid">
+                    <div class="menu-selection">
+                        <h3>Select Items</h3>
+                        <div id="modal-menu-list" class="mini-menu-list">
+                            <!-- Populated with JS -->
+                        </div>
+                    </div>
+                    <div class="order-summary">
+                        <h3>Current Order</h3>
+                        <ul id="order-items-list">
+                            <!-- Selected items go here -->
+                        </ul>
+                        <div class="total-row">
+                            <span>Total:</span>
+                            <span id="order-total-price">$0.00</span>
+                        </div>
+                        <button class="primary-btn full-width" onclick="submitOrder()">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
